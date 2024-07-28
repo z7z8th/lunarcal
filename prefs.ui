@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="lunarcal@ailin.nemui">
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.4"/>
+  <object class="AdwPreferencesPage" id="content-table">
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="AdwSwitchRow" id="show-time">
+            <property name="title" translatable="yes">显示时间</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSwitchRow" id="show-date">
+            <property name="title" translatable="yes">显示日期</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="AdwSwitchRow" id="show-calendar">
+            <property name="title" translatable="yes">日历</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSwitchRow" id="gen-zhi">
+            <property name="title" translatable="yes">干支</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSwitchRow" id="ba-zi">
+            <property name="title" translatable="yes">八字</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSwitchRow" id="jieri">
+            <property name="title" translatable="yes">节日</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwActionRow" id="ziti-dx-l">
+            <property name="title" translatable="yes">字体大小修改</property>
+            <child>
+              <object class="GtkGrid">
+                <property name="can-focus">1</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="row-homogeneous">1</property>
+                <property name="column-homogeneous">1</property>
+                <property name="css-classes">linked</property>
+                <child>
+                  <object class="GtkToggleButton" id="zti-2">
+                    <property name="label" translatable="yes">小</property>
+                    <property name="receives-default">1</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="zti-3">
+                    <property name="label" translatable="yes"> </property>
+                    <property name="receives-default">1</property>
+                    <layout>
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="zti-4">
+                    <property name="label" translatable="yes">正</property>
+                    <property name="receives-default">1</property>
+                    <layout>
+                      <property name="column">2</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="zti-5">
+                    <property name="label" translatable="yes"> </property>
+                    <property name="receives-default">1</property>
+                    <layout>
+                      <property name="column">3</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="zti-6">
+                    <property name="label" translatable="yes">大</property>
+                    <property name="receives-default">1</property>
+                    <layout>
+                      <property name="column">4</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="AdwComboRow" id="yuyan">
+            <property name="title" translatable="yes">语言</property>
+            <property name="model">
+              <object class="GtkStringList">
+                <items>
+                  <item translatable="yes">大陆</item>
+                  <item translatable="yes">香港</item>
+                  <item translatable="yes">台灣</item>
+                  <item translatable="yes">(自动)</item>
+                  <item translatable="yes">Pīnyīn</item>
+                  <item translatable="yes">Elements</item>
+                </items>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwActionRow" id="cxk-l">
+            <property name="title" translatable="yes">程序库</property>
+            <child>
+              <object class="GtkLabel" id="cxk">
+                <property name="selectable">1</property>
+                <property name="label" translatable="yes"></property>
+                <property name="opacity">0.6</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,22 @@
+.lunar-calendar .calendar-day-with-events {
+    background-size: cover;
+}
+
+.lunar-calendar .calendar-month-header .calendar-month-label {
+    width: 14em;
+}
+
+.lunar-calendar-none .calendar-weekday, .lunar-calendar-none .calendar-weekend {
+    height: 3.8em !important;
+    width: 3.8em !important;
+}
+
+.lunar-calendar-large .calendar-weekday, .lunar-calendar-large .calendar-weekend {
+    height: 4.5em !important;
+    width: 4.5em !important;
+}
+
+.lunar-calendar-x-large .calendar-weekday, .lunar-calendar-x-large .calendar-weekend {
+    height: 5.1em !important;
+    width: 5.1em !important;
+}
