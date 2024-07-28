@@ -5,6 +5,7 @@ import GObject      from 'gi://GObject'
 import LunarDate    from 'gi://LunarDate'
 
 const _ld = Gettext.domain('lunar-date').gettext
+
 const diZhi = "Zǐ, Chǒu, Yín, Mǎo, Chén, Sì, Wǔ, Wèi, Shēn, Yǒu, Xū, Hài"
       .split(", ")
 const holidayFormat = LunarDate.DATE_MAJOR_VERSION >= 3 ||
@@ -41,15 +42,17 @@ class LunarDateX extends LunarDate.Date {
   }
 
   setLang (lang) {
-    // not supported
+    this._lang = LunarDateX.lang = lang
   }
 
-  setHoliday (lang) {
-    // not supported
+  setHoliday (holidayRegion) {
+    Gettext.setlocale(Gettext.LocaleCategory.ALL, holidayRegion+".UTF-8");
   }
 }
 )
-LunarDateX.lang = run == "閏" ? 1 : run == "闰" ? 2 : 0
+// LunarDateX.lang = run == "閏" ? 1 : run == "闰" ? 2 : 0
 LunarDateX.backend = 'yetist'
+
+console.log('importing backend', LunarDateX.backend, 'lang', LunarDateX.lang)
 
 export default LunarDateX

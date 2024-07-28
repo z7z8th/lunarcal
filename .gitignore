@@ -1,3 +1,5 @@
 schemas/gschemas.compiled
 
 *.mo
+tags
+gnome-shell-overlay

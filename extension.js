@@ -221,32 +221,37 @@ export default class LunarCalendarExtension extends Extension {
         const prefLang = sysLang[0].replace(/[.@].*$/, '');
         this._settingsChanged.switchLang = () => {
             const yy = this._settings.get_int('yuyan');
-            let holiday = prefLang;
+            let holidayRegion = prefLang;
 
-            let lang = 0;
+            let lang = 2;
             if (prefLang === 'zh_CN') lang = 2;
             else if (prefLang.startsWith('zh_')) lang = 1;
             else if (prefLang.startsWith('de_')) lang = -3;
             else if (prefLang.startsWith('en_')) lang = -1;
 
-            if (yy === 0) {
+            if (yy === 0) { // china
                 lang = 2;
-                holiday = 'zh_CN';
-            } else if (yy === 1) {
+                holidayRegion = 'zh_CN';
+            } else if (yy === 1) { // hongkong
                 lang = 1;
-                holiday = 'zh_HK';
-            } else if (yy === 2) {
+                holidayRegion = 'zh_HK';
+            } else if (yy === 2) { // taiwan
                 lang = 1;
-                holiday = 'zh_TW';
-            } else if (yy === 4) {
+                holidayRegion = 'zh_TW';
+            } else if (yy === 3) { // auto
+                lang = 2;
+                holidayRegion = 'zh_CN';
+            } else if (yy === 4) { // pinyin
                 if (lang < 0) lang += 1;
                 else lang = 0;
-            } else if (yy === 5) {
+            } else if (yy === 5) { // elements
                 if (lang >= 0) lang = -1;
             }
 
+            console.log('lang', lang, 'holidayRegion', holidayRegion)
+
             this._ld.setLang(lang);
-            this._ld.setHoliday(holiday);
+            this._ld.setHoliday(holidayRegion);
         };
         this._settingsChanged.switchLang();
 

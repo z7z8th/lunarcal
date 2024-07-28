@@ -13,7 +13,9 @@ export default class LunarCalendarPreferences extends ExtensionPreferences {
         const ui = Gtk.Builder.new_from_file(this.dir.get_path() + '/prefs.ui');
         win.add(ui.get_object('content-table'));
         const hasBazi = LunarDate.backend != 'ytliu0';
-        const hasLang = LunarDate.backend == 'ytliu0';
+        // const hasLang = LunarDate.backend == 'ytliu0';
+        const hasLang = true;
+        console.log('hasBazi', hasBazi, 'hasLang', hasLang);
 
         // Make sure the win doesn't outlive the settings object
         win._settings = this.getSettings();

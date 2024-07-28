@@ -383,4 +383,6 @@ class LunarDateX {
 LunarDateX.prototype.strftimex = LunarDateX.prototype.strftime
 LunarDateX.backend = 'ytliu0'
 
+console.log('importing backend', LunarDateX.backend)
+
 export default LunarDateX
