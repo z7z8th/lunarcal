@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "(自动)"
+msgstr "(autom.)"
+
+msgid "Elements"
+msgstr "Elemente"
+
+msgid "八字"
+msgstr "Bazi"
+
+msgid "大"
+msgstr "⬤"
+
+msgid "字体大小修改"
+msgstr "Schriftgröße anpassen"
+
+msgid "小"
+msgstr "·"
+
+msgid "干支"
+msgstr "Stamm und Zweig"
+
+msgid "日历"
+msgstr "Kalender"
+
+msgid "显示日期"
+msgstr "Datum"
+
+msgid "显示时间"
+msgstr "Uhrzeit"
+
+msgid "正"
+msgstr "●"
+
+msgid "程序库"
+msgstr "Mondkalender-Bibliothek"
+
+msgid "系统语言"
+msgstr "System-Sprache"
+
+msgid "节日"
+msgstr "Feste"
+
+msgid "语言"
+msgstr "Sprache"

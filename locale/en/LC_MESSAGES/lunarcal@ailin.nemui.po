@@ -1,0 +1,53 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "(自动)"
+msgstr "(auto)"
+
+msgid "八字"
+msgstr "Bazi"
+
+msgid "大"
+msgstr "⬤"
+
+msgid "字体大小修改"
+msgstr "Adjust calendar font size"
+
+msgid "小"
+msgstr "·"
+
+msgid "干支"
+msgstr "Sexagenary cycle"
+
+msgid "日历"
+msgstr "Lunar calendar"
+
+msgid "显示日期"
+msgstr "Show date"
+
+msgid "显示时间"
+msgstr "Show time"
+
+msgid "正"
+msgstr "●"
+
+msgid "程序库"
+msgstr "Lunar library"
+
+msgid "系统语言"
+msgstr "System language"
+
+msgid "节日"
+msgstr "Holidays"
+
+msgid "语言"
+msgstr "Language"
