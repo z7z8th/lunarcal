@@ -293,10 +293,11 @@ export default class LunarCalendarExtension extends Extension {
                     : '';
                 const dx = self._settings.get_string('zti-dx');
                 let l = oargs[0].label;
+                const jr = this._settings.get_boolean('jieri') ? this._ld.getHoliday() : '';
                 if (yd != '')
                     l +=
                         '\n<small>' +
-                        self._ld.strftimex(yd == '1' ? '%(YUE)月' : '%(RI)') +
+                        (jr && this._ld.get_jieri('\n') || self._ld.strftimex(yd == '1' ? '%(YUE)月' : '%(RI)')) +
                         '</small>';
                 if (dx != 'none') l = `<span size='${dx}'>${l}</span>`;
                 oargs[0].label = l;
