@@ -5,6 +5,9 @@ import GLib from 'gi://GLib'
 import {myCalendar, langConstant, unhtmlchar} from './ytliu0-calendar.js'
 import {tlMap, tlLeap} from './ytliu0-lang.js'
 
+let this_ext_path = GLib.canonicalize_filename(GLib.build_pathv('/', [GLib.filename_from_uri(import.meta.url)[0], '..', '..']), null)
+console.log('this_ext_path', this_ext_path)
+
 function ucfirst ([first, ...rest]) {
   return first.toUpperCase() + rest.join('')
 }
@@ -58,6 +61,7 @@ class LunarDateX {
   _load_holiday () {
     try {
       const [ok, file] = this._holidayData.load_from_dirs(holiday_fn, [
+        this_ext_path + '/ChineseCalendar',
         GLib.get_user_config_dir(),
         GLib.get_user_data_dir(),
         ...GLib.get_system_data_dirs()
