@@ -1,17 +1,22 @@
 NAME = "Lunar Calendar \u519c\u5386"
 UUID = "lunarcal@ailin.nemui"
+ZIP = $(UUID).shell-extension.zip
+
+pack: msgfmt
+	@rm -rfv $(ZIP)
+	find . -type f -regextype egrep -iregex ".*\.(js|json|mo|typelib|xml|css|ui)" -not \( -path "./.vscode*" -o -path "./test*" -o -path "./ChineseCalendar*" \) | zip $(ZIP) -@
+	ls *.zip
 
 copy: msgfmt
 	glib-compile-schemas schemas/
 	rsync -rltvp --checksum --delete --exclude='.git' --exclude='.vscode' . ~/.local/share/gnome-shell/extensions/$(UUID)
 
 install:
-	rm -rf lunarcal@ailin.nemui.shell-extension.zip
-	gnome-extensions pack
-	gnome-extensions install --force lunarcal@ailin.nemui.shell-extension.zip
+	gnome-extensions install --force $(ZIP)
 
 uninstall:
-	gnome-extensions uninstall $(UUID)
+	gnome-extensions uninstall $(UUID) || \
+	rm -rfv ~/.local/share/gnome-shell/extensions/$(UUID)
 
 #	export SHELL_DEBUG=all; \
 #	export G_MESSAGES_DEBUG=all; \
@@ -23,16 +28,16 @@ run:
 	dbus-run-session -- gnome-shell --nested --wayland
 
 msgunfmt:
-	set -e; \
+	@set -e; \
 	for f in $$(find . -name "*.mo"); do \
-		echo $f; \
+		echo $@ $$f; \
 		msgunfmt $$f > $${f%.mo}.po; \
 	done
 
 msgfmt:
-	set -e; \
+	@set -e; \
 	for f in $$(find . -name "*.po"); do \
-		echo $f; \
+		echo $@ $$f; \
 		msgfmt $$f > $${f%.po}.mo; \
 	done
 
@@ -76,3 +81,6 @@ girc:
 ltest:
 	gcc -O2 -Wall -g -o locale-test locale-test.c
 	./locale-test
+
+clean:
+	rm -rfv *.zip
