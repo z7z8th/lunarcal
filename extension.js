@@ -12,34 +12,11 @@ import { EventSourceBase } from 'resource:///org/gnome/shell/ui/calendar.js';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import { InjectionManager } from 'resource:///org/gnome/shell/extensions/extension.js';
 
-// import {getThisExtensionPath} from './misc.js'
-
-// let this_ext_path = GLib.canonicalize_filename(GLib.build_pathv('/', [GLib.filename_from_uri(import.meta.url)[0], '..']), null)
-// console.log('this_ext_path', this_ext_path)
-// console.log('getThisExtensionPath', getThisExtensionPath())
-
-// import GIRepo from 'gi://GIRepository'
-// let Repo = GIRepo.Repository
-// console.log('girepo search path', Repo.get_search_path())
-// Repo.prepend_search_path(this_ext_path)
-// Repo.prepend_search_path(getThisExtensionPath())
-// console.log('girepo search path', Repo.get_search_path())
-// console.log('get_loaded_namespaces', Repo.get_default().get_loaded_namespaces())
-
-// let libc = Repo.get_default().require_private(getThisExtensionPath(), 'libc', null, 0)
-// let lib = Repo.get_default().require_private('/usr/lib/x86_64-linux-gnu/girepository-1.0/', 'GLib', null, 0)
-
-// console.log('libc', libc)
-// console.log('get_loaded_namespaces', Repo.get_default().get_loaded_namespaces())
-// import libc from 'gi://libc'
-
 import tl from './lang.js';
 import LunarDate from './backend-selector.js';
 
 let prefLang = 'en_US';
 let holidayRegion = 'zh_CN';
-
-console.log(Gettext);
 
 const _make_new_with_args = (my_class, args) =>
     new (Function.prototype.bind.apply(

@@ -2,9 +2,13 @@ import Gettext from 'gettext';
 
 import GObject from 'gi://GObject';
 import LunarDate from 'gi://LunarDate';
+
+import '../init.js';
+
 import libc from 'gi://libc';
 
-let _ld = Gettext.domain('lunar-date').gettext;
+let _ld;
+let _holidayRegion = 'zh_CN.UTF-8';
 
 const diZhi = 'Zǐ, Chǒu, Yín, Mǎo, Chén, Sì, Wǔ, Wèi, Shēn, Yǒu, Xū, Hài'.split(', ');
 const holidayFormat =
@@ -12,12 +16,10 @@ const holidayFormat =
     (LunarDate.DATE_MAJOR_VERSION == 2 && LunarDate.DATE_MINOR_VERSION >= 9)
         ? '%(holiday)'
         : '%(jieri)';
-const run = _ld('Rùn');
 class CLunarDateX extends LunarDate.Date {
     constructor() {
         super();
         this._lang = LunarDateX.lang;
-        this._holidayRegion = 'zh_CN.UTF-8';
     }
 
     setDate(date) {
@@ -50,18 +52,19 @@ class CLunarDateX extends LunarDate.Date {
     }
 
     setHoliday(holidayRegion) {
-        this._holidayRegion = holidayRegion + '.UTF-8';
+        _holidayRegion = holidayRegion + '.UTF-8';
     }
 }
 
-Function.prototype.wrap = function () {
+Function.prototype.wrapLocale = function () {
     let fn = this;
+    console.log('Wrapping', typeof fn, fn);
     // () => {} will not work here,
     // since arrow function does not bind this to the calling object
     // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
     return function () {
-        // console.log('in wrap', fn, 'arguments', arguments);
-        let nl = libc.newlocale(libc.LC_ALL_MASK, 'zh_CN.UTF-8', null);
+        // console.log('in wrapLocale', fn, 'arguments', arguments);
+        let nl = libc.newlocale(libc.LC_ALL_MASK, _holidayRegion, null);
         // console.log('newlocale ret', nl, typeof nl);
         let ol = libc.uselocale(nl);
         // console.log('uselocale ret', ol);
@@ -70,10 +73,12 @@ Function.prototype.wrap = function () {
 
         let ool = libc.uselocale(-1);
         // console.log('uselocale ret2', ool);
-        // console.log('in wrap', fn, arguments, 'ret', ret);
+        // console.log('in wrapLocale', fn, arguments, 'ret', ret);
         return ret;
     };
 };
+
+_ld = Gettext.domain('lunar-date').gettext.wrapLocale();
 
 // !!! Why can't found getShi and getHoliday when iterating CLunarDateX???
 // console.log('typeof LunarDateX', typeof CLunarDateX);
@@ -84,28 +89,27 @@ Function.prototype.wrap = function () {
 
 //     if (typeof func == 'function' && key.search(/^get|^strftime/) >= 0) {
 //         console.log('Wrapping CLunarDateX.', key, typeof func, func);
-//         CLunarDateX[key] = func.wrap();
+//         CLunarDateX[key] = func.wrapLocale();
 //     }
 // }
-
-_ld = _ld.wrap();
 
 console.log('typeof LunarDate.Date.prototype', typeof LunarDate.Date.prototype);
 
 for (const key in LunarDate.Date.prototype) {
     const func = LunarDate.Date.prototype[key];
-    if (typeof func == 'function' && key.search(/^get_jieri|^strftime/) >= 0) {
-        console.log('Wrapping LunarDate.Date.prototype', key, typeof func, func);
-        if (!func.wrap) {
-            console.log('no wrap for ', key, func);
+    if (typeof func == 'function' && key.search(/^get_jieri|^strftime|^ld$/) >= 0) {
+        // console.log('Wrapping LunarDate.Date.prototype', key, typeof func, func);
+        if (!func.wrapLocale) {
+            console.log('no wrapper for ', key, func);
         } else {
-            LunarDate.Date.prototype[key] = func.wrap();
+            LunarDate.Date.prototype[key] = func.wrapLocale();
         }
     }
 }
 
 const LunarDateX = GObject.registerClass(CLunarDateX);
 
+const run = _ld('Rùn');
 // LunarDateX.lang = run == "閏" ? 1 : run == "闰" ? 2 : 0
 LunarDateX.backend = 'yetist';
 

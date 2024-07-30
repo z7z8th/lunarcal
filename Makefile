@@ -3,7 +3,7 @@ UUID = "lunarcal@ailin.nemui"
 
 copy: msgfmt
 	glib-compile-schemas schemas/
-	rsync -rltvp --delete --exclude='.git' --exclude='.vscode' . ~/.local/share/gnome-shell/extensions/$(UUID)
+	rsync -rltvp --checksum --delete --exclude='.git' --exclude='.vscode' . ~/.local/share/gnome-shell/extensions/$(UUID)
 
 install:
 	rm -rf lunarcal@ailin.nemui.shell-extension.zip

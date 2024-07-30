@@ -36,7 +36,10 @@ export function setInterval(func, delay, ...args) {
 }
 
 export function getThisExtensionPath() {
-    let this_ext_path = GLib.canonicalize_filename(GLib.build_pathv('/', [GLib.filename_from_uri(import.meta.url)[0], '..']), null)
-    console.log('getThisExtensionPath', this_ext_path)
-    return this_ext_path
+    let this_ext_path = GLib.canonicalize_filename(
+        GLib.build_pathv('/', [GLib.filename_from_uri(import.meta.url)[0], '..']),
+        null
+    );
+    console.log('getThisExtensionPath', this_ext_path);
+    return this_ext_path;
 }
