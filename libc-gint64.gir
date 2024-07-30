@@ -59,11 +59,11 @@
 
     <function name="duplocale" c:identifier="duplocale">
       <return-value transfer-ownership="none">
-        <type name="guint64"/>
+        <type name="gint64"/>
       </return-value>
       <parameters>
         <parameter name="locobj" transfer-ownership="none">
-          <type name="guint64"/>
+          <type name="gint64"/>
         </parameter>
       </parameters>
     </function>
@@ -74,14 +74,14 @@
       </return-value>
       <parameters>
         <parameter name="locobj" transfer-ownership="none">
-          <type name="guint64"/>
+          <type name="gint64"/>
         </parameter>
       </parameters>
     </function>
 
     <function name="newlocale" c:identifier="newlocale">
       <return-value transfer-ownership="none" allow-none="1">
-        <type name="guint64"/>
+        <type name="gint64"/>
       </return-value>
       <parameters>
         <parameter name="category_mask" transfer-ownership="none">
@@ -91,7 +91,7 @@
           <type name="utf8" c:type="const char*"/>
         </parameter>
         <parameter name="base" transfer-ownership="none" allow-none="1">
-          <type name="guint64"/>
+          <type name="gint64"/>
         </parameter>
       </parameters>
     </function>
@@ -112,11 +112,11 @@
 
     <function name="uselocale" c:identifier="uselocale">
       <return-value transfer-ownership="none" allow-none="1">
-        <type name="guint64"/>
+        <type name="gint64"/>
       </return-value>
       <parameters>
         <parameter name="newloc" transfer-ownership="none">
-          <type name="guint64"/>
+          <type name="gint64"/>
         </parameter>
       </parameters>
     </function>

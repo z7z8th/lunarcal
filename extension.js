@@ -33,17 +33,13 @@ import { InjectionManager } from 'resource:///org/gnome/shell/extensions/extensi
 // console.log('get_loaded_namespaces', Repo.get_default().get_loaded_namespaces())
 // import libc from 'gi://libc'
 
-
 import tl from './lang.js';
 import LunarDate from './backend-selector.js';
 
-let prefLang = 'en_US'
-let holidayRegion = 'zh_CN'
+let prefLang = 'en_US';
+let holidayRegion = 'zh_CN';
 
-function setLocale(locale) {
-    // Gettext.setlocale(Gettext.LocaleCategory.MESSAGES, locale+".UTF-8");
-}
-console.log(Gettext)
+console.log(Gettext);
 
 const _make_new_with_args = (my_class, args) =>
     new (Function.prototype.bind.apply(
@@ -158,12 +154,10 @@ const LunarCalendarSection = GObject.registerClass(
         }
 
         setDate(date) {
-            LunarDate.backend == 'yetist' && setLocale(holidayRegion);
             this._ld.setDateNoon(date);
             let cny = this._ld.strftime('%(shengxiao)');
             this._title.label = this._ld.strftimex('%(NIAN)年%(YUE)月%(RI)日');
             this._reloadEvents();
-            LunarDate.backend == 'yetist' && setLocale(prefLang);
         }
 
         _shouldShow() {
@@ -225,18 +219,15 @@ export default class LunarCalendarExtension extends Extension {
     }
 
     _getLunarClockDisplay() {
-        LunarDate.backend == 'yetist' && setLocale(holidayRegion);
         const show_date = this._settings.get_boolean('show-date');
         const show_time = this._settings.get_boolean('show-time');
         let shi_tl = show_time
             ? this._tl('%(SHI)时').replace('%(SHI)', `${this._ld.getShi()}`)
             : '';
-        let ret = (
+        let ret =
             (show_date ? '\u2001' + this._ld.strftimex('%(YUE)月%(RI)日') : '') +
-            (show_time ? (show_date && this._ld._lang > 0 ? '' : '\u2000') + shi_tl : '')
-        );
-        LunarDate.backend == 'yetist' && setLocale(prefLang);
-        return ret
+            (show_time ? (show_date && this._ld._lang > 0 ? '' : '\u2000') + shi_tl : '');
+        return ret;
     }
 
     enable() {
@@ -269,26 +260,32 @@ export default class LunarCalendarExtension extends Extension {
             else if (prefLang.startsWith('de_')) lang = -3;
             else if (prefLang.startsWith('en_')) lang = -1;
 
-            if (yy === 0) { // china
+            if (yy === 0) {
+                // china
                 lang = 2;
                 holidayRegion = 'zh_CN';
-            } else if (yy === 1) { // hongkong
+            } else if (yy === 1) {
+                // hongkong
                 lang = 1;
                 holidayRegion = 'zh_HK';
-            } else if (yy === 2) { // taiwan
+            } else if (yy === 2) {
+                // taiwan
                 lang = 1;
                 holidayRegion = 'zh_TW';
-            } else if (yy === 3) { // auto
+            } else if (yy === 3) {
+                // auto
                 lang = 2;
                 holidayRegion = 'zh_CN';
-            } else if (yy === 4) { // pinyin
+            } else if (yy === 4) {
+                // pinyin
                 if (lang < 0) lang += 1;
                 else lang = 0;
-            } else if (yy === 5) { // elements
+            } else if (yy === 5) {
+                // elements
                 if (lang >= 0) lang = -1;
             }
 
-            console.log('lang', lang, 'holidayRegion', holidayRegion)
+            console.log('lang', lang, 'holidayRegion', holidayRegion);
 
             this._ld.setLang(lang);
             this._ld.setHoliday(holidayRegion);
@@ -322,9 +319,7 @@ export default class LunarCalendarExtension extends Extension {
         this._settingsChanged.refreshClock();
 
         const lunarButton = (orig_button, iter_date, oargs) => {
-            LunarDate.backend == 'yetist' && setLocale(holidayRegion);
-
-            // if (+oargs[0].label == +iter_date.getDate().toString()) {
+            if (+oargs[0].label == +iter_date.getDate().toString()) {
                 iter_date._lunar_iter_found = true;
                 self._ld.setDateNoon(iter_date);
                 const yd = self._settings.get_boolean('show-calendar')
@@ -332,19 +327,20 @@ export default class LunarCalendarExtension extends Extension {
                     : '';
                 const dx = self._settings.get_string('zti-dx');
                 let l = oargs[0].label;
-                const jr = this._settings.get_boolean('jieri') ? this._ld.getHoliday() : '';
+                const jr = this._settings.get_boolean('jieri')
+                    ? this._ld.getHoliday()
+                    : '';
                 if (yd != '')
                     l +=
                         '\n<small>' +
-                        (jr && this._ld.get_jieri('\n') || self._ld.strftimex(yd == '1' ? '%(YUE)月' : '%(RI)')) +
+                        ((jr && this._ld.get_jieri('\n')) ||
+                            self._ld.strftimex(yd == '1' ? '%(YUE)月' : '%(RI)')) +
                         '</small>';
                 if (dx != 'none') l = `<span size='${dx}'>${l}</span>`;
                 oargs[0].label = l;
-            // }
+            }
             let new_button = _make_new_with_args(orig_button, oargs);
             new_button.child.use_markup = true;
-
-            LunarDate.backend == 'yetist' && setLocale(prefLang);
 
             return new_button;
         };

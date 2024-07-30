@@ -68,8 +68,8 @@ girs:
 		locale.h
 
 girc:
-	g-ir-compiler --verbose --output libc-$(GIR_NS_VERSION).typelib libc-guint64.gir --includedir=/usr/include
-
+	g-ir-compiler --verbose --output libc-$(GIR_NS_VERSION).typelib libc-gint64.gir --includedir=/usr/include
+	sudo cp -v libc-$(GIR_NS_VERSION).typelib /usr/lib/x86_64-linux-gnu/girepository-1.0/
 
 # /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
 
