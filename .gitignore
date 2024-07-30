@@ -1,5 +1,12 @@
 schemas/gschemas.compiled
 
 *.mo
+*.typelib
+*.zip
+
 tags
+.vscode-ctags
 gnome-shell-overlay
+
+ChineseCalendar-/
+locale-test

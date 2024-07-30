@@ -1,0 +1,8 @@
+Coding in GJS is very painfull
+
+functions are missing, like newlocale/uselocale, when I trying to add them by gir/typelib, pointer passing are broken, when trying guint64 to replace gpointer, overflow happened.
+Bugs of the problems I faced have already been reported years ago, but leaving unfixed, with a similiar comment:
+
+`This API is not introspectable. This works in PyGObject because they implemented a wrapper around the C API and use it in their imports system.`
+
+https://gitlab.gnome.org/GNOME/gjs/-/issues/73

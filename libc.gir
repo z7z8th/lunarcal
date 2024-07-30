@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <namespace name="libc"
+             version="1"
+             shared-library="libc.so.6"
+             c:identifier-prefixes="libc"
+             c:symbol-prefixes="libc">
+    <constant name="LC_ADDRESS_MASK" value="512" c:type="LC_ADDRESS_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_ALL_MASK" value="8127" c:type="LC_ALL_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_COLLATE_MASK" value="8" c:type="LC_COLLATE_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_CTYPE_MASK" value="1" c:type="LC_CTYPE_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_GLOBAL_LOCALE" value="-1" c:type="LC_GLOBAL_LOCALE">
+      <type name="gint"/>
+    </constant>
+    <constant name="LC_IDENTIFICATION_MASK"
+              value="4096"
+              c:type="LC_IDENTIFICATION_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_MEASUREMENT_MASK"
+              value="2048"
+              c:type="LC_MEASUREMENT_MASK">
+      <source-position filename="locale.h" line="158"/>
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_MESSAGES_MASK" value="32" c:type="LC_MESSAGES_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_MONETARY_MASK" value="16" c:type="LC_MONETARY_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_NAME_MASK" value="256" c:type="LC_NAME_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_NUMERIC_MASK" value="2" c:type="LC_NUMERIC_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_PAPER_MASK" value="128" c:type="LC_PAPER_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_TELEPHONE_MASK" value="1024" c:type="LC_TELEPHONE_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LC_TIME_MASK" value="4" c:type="LC_TIME_MASK">
+      <type name="gint" c:type="gint"/>
+    </constant>
+
+    <function name="duplocale" c:identifier="duplocale">
+      <return-value transfer-ownership="none">
+        <type name="gpointer"/>
+      </return-value>
+      <parameters>
+        <parameter name="locobj" transfer-ownership="none">
+          <type name="gpointer"/>
+        </parameter>
+      </parameters>
+    </function>
+
+    <function name="freelocale" c:identifier="freelocale">
+      <return-value transfer-ownership="none">
+        <type name="none"/>
+      </return-value>
+      <parameters>
+        <parameter name="locobj" transfer-ownership="none">
+          <type name="gpointer"/>
+        </parameter>
+      </parameters>
+    </function>
+
+    <function name="newlocale" c:identifier="newlocale">
+      <return-value transfer-ownership="none" allow-none="1">
+        <type name="gpointer"/>
+      </return-value>
+      <parameters>
+        <parameter name="category_mask" transfer-ownership="none">
+          <type name="gint" c:type="int"/>
+        </parameter>
+        <parameter name="locale" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+        <parameter name="base" transfer-ownership="none" allow-none="1">
+          <type name="gpointer"/>
+        </parameter>
+      </parameters>
+    </function>
+
+    <function name="setlocale" c:identifier="setlocale">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="char*"/>
+      </return-value>
+      <parameters>
+        <parameter name="category" transfer-ownership="none">
+          <type name="gint" c:type="int"/>
+        </parameter>
+        <parameter name="locale" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
+
+    <function name="uselocale" c:identifier="uselocale">
+      <return-value transfer-ownership="none" allow-none="1">
+        <type name="gpointer"/>
+      </return-value>
+      <parameters>
+        <parameter name="newloc" transfer-ownership="none">
+          <type name="gpointer"/>
+        </parameter>
+      </parameters>
+    </function>
+  </namespace>
+</repository>

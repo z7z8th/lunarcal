@@ -3,6 +3,7 @@ import GObject from 'gi://GObject';
 import GLib from 'gi://GLib';
 import GnomeDesktop from 'gi://GnomeDesktop';
 import St from 'gi://St';
+import Gettext from 'gettext';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as MessageList from 'resource:///org/gnome/shell/ui/messageList.js';
@@ -11,8 +12,38 @@ import { EventSourceBase } from 'resource:///org/gnome/shell/ui/calendar.js';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import { InjectionManager } from 'resource:///org/gnome/shell/extensions/extension.js';
 
+// import {getThisExtensionPath} from './misc.js'
+
+// let this_ext_path = GLib.canonicalize_filename(GLib.build_pathv('/', [GLib.filename_from_uri(import.meta.url)[0], '..']), null)
+// console.log('this_ext_path', this_ext_path)
+// console.log('getThisExtensionPath', getThisExtensionPath())
+
+// import GIRepo from 'gi://GIRepository'
+// let Repo = GIRepo.Repository
+// console.log('girepo search path', Repo.get_search_path())
+// Repo.prepend_search_path(this_ext_path)
+// Repo.prepend_search_path(getThisExtensionPath())
+// console.log('girepo search path', Repo.get_search_path())
+// console.log('get_loaded_namespaces', Repo.get_default().get_loaded_namespaces())
+
+// let libc = Repo.get_default().require_private(getThisExtensionPath(), 'libc', null, 0)
+// let lib = Repo.get_default().require_private('/usr/lib/x86_64-linux-gnu/girepository-1.0/', 'GLib', null, 0)
+
+// console.log('libc', libc)
+// console.log('get_loaded_namespaces', Repo.get_default().get_loaded_namespaces())
+// import libc from 'gi://libc'
+
+
 import tl from './lang.js';
 import LunarDate from './backend-selector.js';
+
+let prefLang = 'en_US'
+let holidayRegion = 'zh_CN'
+
+function setLocale(locale) {
+    // Gettext.setlocale(Gettext.LocaleCategory.MESSAGES, locale+".UTF-8");
+}
+console.log(Gettext)
 
 const _make_new_with_args = (my_class, args) =>
     new (Function.prototype.bind.apply(
@@ -127,10 +158,12 @@ const LunarCalendarSection = GObject.registerClass(
         }
 
         setDate(date) {
+            LunarDate.backend == 'yetist' && setLocale(holidayRegion);
             this._ld.setDateNoon(date);
             let cny = this._ld.strftime('%(shengxiao)');
             this._title.label = this._ld.strftimex('%(NIAN)年%(YUE)月%(RI)日');
             this._reloadEvents();
+            LunarDate.backend == 'yetist' && setLocale(prefLang);
         }
 
         _shouldShow() {
@@ -192,15 +225,18 @@ export default class LunarCalendarExtension extends Extension {
     }
 
     _getLunarClockDisplay() {
+        LunarDate.backend == 'yetist' && setLocale(holidayRegion);
         const show_date = this._settings.get_boolean('show-date');
         const show_time = this._settings.get_boolean('show-time');
         let shi_tl = show_time
             ? this._tl('%(SHI)时').replace('%(SHI)', `${this._ld.getShi()}`)
             : '';
-        return (
+        let ret = (
             (show_date ? '\u2001' + this._ld.strftimex('%(YUE)月%(RI)日') : '') +
             (show_time ? (show_date && this._ld._lang > 0 ? '' : '\u2000') + shi_tl : '')
         );
+        LunarDate.backend == 'yetist' && setLocale(prefLang);
+        return ret
     }
 
     enable() {
@@ -217,11 +253,15 @@ export default class LunarCalendarExtension extends Extension {
             }
         });
 
+        const dm = Main.panel.statusArea.dateMenu;
+        const cal = dm._calendar;
+
         const sysLang = GLib.get_language_names();
-        const prefLang = sysLang[0].replace(/[.@].*$/, '');
+        prefLang = sysLang[0].replace(/[.@].*$/, '');
+        console.log('preflang', prefLang);
         this._settingsChanged.switchLang = () => {
             const yy = this._settings.get_int('yuyan');
-            let holidayRegion = prefLang;
+            holidayRegion = prefLang;
 
             let lang = 2;
             if (prefLang === 'zh_CN') lang = 2;
@@ -255,9 +295,6 @@ export default class LunarCalendarExtension extends Extension {
         };
         this._settingsChanged.switchLang();
 
-        const dm = Main.panel.statusArea.dateMenu;
-
-        const cal = dm._calendar;
         const ml = dm._messageList;
 
         this._replacementFunc.originalMonthHeader = cal._headerFormat;
@@ -285,7 +322,9 @@ export default class LunarCalendarExtension extends Extension {
         this._settingsChanged.refreshClock();
 
         const lunarButton = (orig_button, iter_date, oargs) => {
-            if (+oargs[0].label == +iter_date.getDate().toString()) {
+            LunarDate.backend == 'yetist' && setLocale(holidayRegion);
+
+            // if (+oargs[0].label == +iter_date.getDate().toString()) {
                 iter_date._lunar_iter_found = true;
                 self._ld.setDateNoon(iter_date);
                 const yd = self._settings.get_boolean('show-calendar')
@@ -301,9 +340,11 @@ export default class LunarCalendarExtension extends Extension {
                         '</small>';
                 if (dx != 'none') l = `<span size='${dx}'>${l}</span>`;
                 oargs[0].label = l;
-            }
+            // }
             let new_button = _make_new_with_args(orig_button, oargs);
             new_button.child.use_markup = true;
+
+            LunarDate.backend == 'yetist' && setLocale(prefLang);
 
             return new_button;
         };
@@ -375,7 +416,6 @@ export default class LunarCalendarExtension extends Extension {
                         cal_style_class.push('lunar-calendar-' + dx);
                     }
                     cal.style_class = cal_style_class.join(' ');
-
                     rebuild_in_progress = false;
                 }
         );

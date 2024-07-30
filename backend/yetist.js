@@ -1,10 +1,10 @@
 import Gettext from 'gettext';
 
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import LunarDate from 'gi://LunarDate';
-
-import { setTimeout } from '../misc.js';
+import cairo from 'gi://cairo'
+import libc from 'gi://libc'
+console.log('cairo ret', cairo.image_surface_create(cairo.rgb24, 1234, 979))
 
 const _ld = Gettext.domain('lunar-date').gettext;
 
@@ -63,9 +63,30 @@ const LunarDateX = GObject.registerClass(
             // GLib.setenv('LANGUAGE', holidayRegion, true)
             // setTimeout(() => GLib.setenv('LANGUAGE', holidayRegion, true), 1000);
 
-            console.log('getlocale', Gettext.setlocale(Gettext.LocaleCategory.ALL, null));
-            Gettext.setlocale(Gettext.LocaleCategory.ALL, holidayRegion+".UTF-8");
-            console.log('getlocale', Gettext.setlocale(Gettext.LocaleCategory.ALL, null));
+            // console.log('getlocale', Gettext.setlocale(Gettext.LocaleCategory.ALL, null));
+            // Gettext.setlocale(Gettext.LocaleCategory.ALL, holidayRegion+".UTF-8");
+            // console.log('getlocale', Gettext.setlocale(Gettext.LocaleCategory.ALL, null));
+
+
+            for (let f in libc) {
+                console.log('libc.*', f, libc[f])
+            }
+            console.log('LC_ALL_MASK', libc.LC_ALL_MASK, 'type', typeof libc.LC_ALL_MASK)
+
+            let nl = libc.newlocale(libc.LC_ALL_MASK, "zh_CN.UTF-8", null);
+            console.log('newlocale ret', nl, typeof(nl))
+
+            let dl = libc.duplocale(nl)
+            console.log('duplocale ret', dl)
+            // console.log('newlocale ret', nl.toString(16))
+
+            let ol = libc.uselocale(nl);
+            console.log('uselocale ret', ol)
+
+            console.log('Rùn', _ld('Rùn'))
+
+            let ool = libc.uselocale(ol);
+            console.log('uselocale ret2', ool)
         }
     }
 );

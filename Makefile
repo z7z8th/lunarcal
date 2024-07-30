@@ -1,9 +1,14 @@
 NAME = "Lunar Calendar \u519c\u5386"
 UUID = "lunarcal@ailin.nemui"
 
-install: msgfmt
+copy: msgfmt
 	glib-compile-schemas schemas/
-	rsync -rltvp --exclude='.git' --exclude='.vscode' . ~/.local/share/gnome-shell/extensions/$(UUID)
+	rsync -rltvp --delete --exclude='.git' --exclude='.vscode' . ~/.local/share/gnome-shell/extensions/$(UUID)
+
+install:
+	rm -rf lunarcal@ailin.nemui.shell-extension.zip
+	gnome-extensions pack
+	gnome-extensions install --force lunarcal@ailin.nemui.shell-extension.zip
 
 uninstall:
 	gnome-extensions uninstall $(UUID)
@@ -45,3 +50,29 @@ gjs:
 	grep -E -o -q "^[^#]+G_RESOURCE_OVERLAYS" $$HOME/.profile || \
 	cat <<EOF >>$$HOME/.profile
 	export G_RESOURCE_OVERLAYS="/org/gnome=$$HOME/.local/share/gnome-shell/gnome-shell-overlay"
+
+GIR_NS_VERSION=1
+
+# girs:
+# 	g-ir-scanner -L /usr/lib/x86_64-linux-gnu/ -lc -n libc --nsversion=$(GIR_NS_VERSION) \
+# 		--accept-unprefixed --warn-all \
+# 		-I /usr/include -I /usr/include/x86_64-linux-gnu \
+# 		-o libc.gir --include=GObject-2.0 \
+# 		/usr/include/locale.h /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
+
+girs:
+	g-ir-scanner -L /usr/lib/x86_64-linux-gnu/ -lc -n libc --nsversion=$(GIR_NS_VERSION) \
+		--accept-unprefixed --warn-all \
+		\
+		-o libc-1.gir \
+		locale.h
+
+girc:
+	g-ir-compiler --verbose --output libc-$(GIR_NS_VERSION).typelib libc-guint64.gir --includedir=/usr/include
+
+
+# /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
+
+ltest:
+	gcc -O2 -Wall -g -o locale-test locale-test.c
+	./locale-test

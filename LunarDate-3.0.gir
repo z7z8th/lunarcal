@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<repository version="1.0"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="GObject" version="2.0"/>
+  <namespace name="LunarDate" version="3.0" shared-library="liblunar-date-3.0.so.1" c:prefix="Lunar">
+    <constant name="DATE_MAJOR_VERSION" value="3">
+      <type name="gint32"/>
+    </constant>
+    <constant name="DATE_MICRO_VERSION" value="1">
+      <type name="gint32"/>
+    </constant>
+    <constant name="DATE_MINOR_VERSION" value="0">
+      <type name="gint32"/>
+    </constant>
+    <class name="Date" parent="GObject.Object" glib:type-struct="DateClass" glib:type-name="LunarDate" glib:get-type="lunar_date_get_type">
+      <constructor name="new" c:identifier="lunar_date_new">
+        <return-value transfer-ownership="full">
+          <type name="Date"/>
+        </return-value>
+      </constructor>
+      <function name="check_version" c:identifier="lunar_date_check_version">
+        <return-value transfer-ownership="none">
+          <type name="utf8"/>
+        </return-value>
+        <parameters>
+          <parameter name="required_major" transfer-ownership="none">
+            <type name="guint32"/>
+          </parameter>
+          <parameter name="required_minor" transfer-ownership="none">
+            <type name="guint32"/>
+          </parameter>
+          <parameter name="required_micro" transfer-ownership="none">
+            <type name="guint32"/>
+          </parameter>
+        </parameters>
+      </function>
+      <method name="free" c:identifier="lunar_date_free">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </method>
+      <method name="get_calendar" c:identifier="lunar_date_get_calendar">
+        <return-value transfer-ownership="full">
+          <type name="utf8"/>
+        </return-value>
+        <parameters>
+          <parameter name="max" transfer-ownership="none">
+            <type name="gint32"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_constellation" c:identifier="lunar_date_get_constellation">
+        <return-value transfer-ownership="full">
+          <type name="utf8"/>
+        </return-value>
+      </method>
+      <method name="get_holiday" c:identifier="lunar_date_get_holiday">
+        <return-value transfer-ownership="full">
+          <type name="utf8"/>
+        </return-value>
+        <parameters>
+          <parameter name="delimiter" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_jieri" c:identifier="lunar_date_get_jieri" deprecated="1">
+        <return-value transfer-ownership="full">
+          <type name="utf8"/>
+        </return-value>
+        <parameters>
+          <parameter name="delimiter" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_lunar_date" c:identifier="lunar_date_set_lunar_date" throws="1">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="year" transfer-ownership="none">
+            <type name="guint16"/>
+          </parameter>
+          <parameter name="month" transfer-ownership="none">
+            <type name="GLib.DateMonth"/>
+          </parameter>
+          <parameter name="day" transfer-ownership="none">
+            <type name="guint8"/>
+          </parameter>
+          <parameter name="hour" transfer-ownership="none">
+            <type name="guint8"/>
+          </parameter>
+          <parameter name="isleap" transfer-ownership="none">
+            <type name="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_lunar_holiday" c:identifier="lunar_date_set_lunar_holiday">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="month" transfer-ownership="none">
+            <type name="GLib.DateMonth"/>
+          </parameter>
+          <parameter name="day" transfer-ownership="none">
+            <type name="guint8"/>
+          </parameter>
+          <parameter name="holiday" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_solar_date" c:identifier="lunar_date_set_solar_date" throws="1">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="year" transfer-ownership="none">
+            <type name="guint16"/>
+          </parameter>
+          <parameter name="month" transfer-ownership="none">
+            <type name="GLib.DateMonth"/>
+          </parameter>
+          <parameter name="day" transfer-ownership="none">
+            <type name="guint8"/>
+          </parameter>
+          <parameter name="hour" transfer-ownership="none">
+            <type name="guint8"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_solar_holiday" c:identifier="lunar_date_set_solar_holiday">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="month" transfer-ownership="none">
+            <type name="GLib.DateMonth"/>
+          </parameter>
+          <parameter name="day" transfer-ownership="none">
+            <type name="guint8"/>
+          </parameter>
+          <parameter name="holiday" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_week_holiday" c:identifier="lunar_date_set_week_holiday">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="month" transfer-ownership="none">
+            <type name="GLib.DateMonth"/>
+          </parameter>
+          <parameter name="week_of_month" transfer-ownership="none">
+            <type name="gint32"/>
+          </parameter>
+          <parameter name="day_of_week" transfer-ownership="none">
+            <type name="gint32"/>
+          </parameter>
+          <parameter name="holiday" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="strftime" c:identifier="lunar_date_strftime">
+        <return-value transfer-ownership="full">
+          <type name="utf8"/>
+        </return-value>
+        <parameters>
+          <parameter name="format" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </method>
+    </class>
+    <record name="DateClass" glib:is-gtype-struct="1" size="136">
+      <field name="parent_class"offset="0">
+        <type name="GObject.ObjectClass"/>
+      </field>
+    </record>
+    <enumeration name="DateError" glib:type-name="LunarDateError" glib:get-type="lunar_date_error_get_type" glib:error-domain="lunar-date-error-quark">
+      <member name="internal" value="0">
+        <attribute name="c:identifier" value="LUNAR_DATE_ERROR_INTERNAL"/>
+      </member>
+      <member name="year" value="1">
+        <attribute name="c:identifier" value="LUNAR_DATE_ERROR_YEAR"/>
+      </member>
+      <member name="month" value="2">
+        <attribute name="c:identifier" value="LUNAR_DATE_ERROR_MONTH"/>
+      </member>
+      <member name="day" value="3">
+        <attribute name="c:identifier" value="LUNAR_DATE_ERROR_DAY"/>
+      </member>
+      <member name="hour" value="4">
+        <attribute name="c:identifier" value="LUNAR_DATE_ERROR_HOUR"/>
+      </member>
+      <member name="leap" value="5">
+        <attribute name="c:identifier" value="LUNAR_DATE_ERROR_LEAP"/>
+      </member>
+    </enumeration>
+    <function name="date_error_quark" c:identifier="lunar_date_error_quark">
+      <return-value transfer-ownership="none">
+        <type name="guint32"/>
+      </return-value>
+    </function>
+    <function name="init" c:identifier="lunar_init">
+      <return-value transfer-ownership="none">
+        <type name="none"/>
+      </return-value>
+      <parameters>
+        <parameter name="argc" transfer-ownership="none">
+          <type name="gint32"/>
+        </parameter>
+        <parameter name="argv" transfer-ownership="none">
+          <type name="utf8"/>
+        </parameter>
+      </parameters>
+    </function>
+  </namespace>
+</repository>

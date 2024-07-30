@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<repository version="1.0"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <namespace name="xrandr" version="1.3" c:prefix="XRR">
+    <record name="ScreenSize" size="0"/>
+    <record name="ScreenChangeNotifyEvent" size="0"/>
+    <record name="NotifyEvent" size="0"/>
+    <record name="ScreenResources" size="0"/>
+    <record name="OutputChangeNotifyEvent" size="0"/>
+    <record name="CrtcChangeNotifyEvent" size="0"/>
+    <record name="OutputPropertyNotifyEvent" size="0"/>
+  </namespace>
+</repository>

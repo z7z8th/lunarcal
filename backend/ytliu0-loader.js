@@ -6,15 +6,15 @@
 import GLib from 'gi://GLib'
 
 let this_ext_path = GLib.canonicalize_filename(GLib.build_pathv('/', [GLib.filename_from_uri(import.meta.url)[0], '..', '..']), null)
-console.log('this_ext_path', this_ext_path)
+// console.log('this_ext_path', this_ext_path)
 
 // Code from gnome-shell 44 : extenstionUtils.js:installImporter
 let custom_importer
 const origSearchPath = imports.searchPath.slice()
 imports.searchPath = [this_ext_path, GLib.get_user_data_dir(), ...GLib.get_system_data_dirs()]
 
-console.log('GLib.get_user_data_dir()', GLib.get_user_data_dir())
-console.log('GLib.get_system_data_dirs()', GLib.get_system_data_dirs())
+// console.log('GLib.get_user_data_dir()', GLib.get_user_data_dir())
+// console.log('GLib.get_system_data_dirs()', GLib.get_system_data_dirs())
 
 try {
   // importing a "subdir" creates a new importer object that doesn't affect

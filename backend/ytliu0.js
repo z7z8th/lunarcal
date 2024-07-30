@@ -6,7 +6,7 @@ import {myCalendar, langConstant, unhtmlchar} from './ytliu0-calendar.js'
 import {tlMap, tlLeap} from './ytliu0-lang.js'
 
 let this_ext_path = GLib.canonicalize_filename(GLib.build_pathv('/', [GLib.filename_from_uri(import.meta.url)[0], '..', '..']), null)
-console.log('this_ext_path', this_ext_path)
+// console.log('this_ext_path', this_ext_path)
 
 function ucfirst ([first, ...rest]) {
   return first.toUpperCase() + rest.join('')
