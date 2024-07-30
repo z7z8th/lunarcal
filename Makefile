@@ -4,8 +4,9 @@ ZIP = $(UUID).shell-extension.zip
 
 pack: msgfmt
 	@rm -rfv $(ZIP)
-	find . -type f -regextype egrep -iregex ".*\.(js|json|mo|typelib|xml|css|ui)" -not \( -path "./.vscode*" -o -path "./test*" -o -path "./ChineseCalendar*" \) | zip $(ZIP) -@
+	find . -type f -regextype egrep -iregex ".*\.(js|json|mo|typelib|xml|css|ui)|.*/holiday.dat" -not \( -path "./.vscode*" -o -path "./test*" \) | zip $(ZIP) -@
 	ls *.zip
+	[ -d /opt/VM/share ] && rsync -rltvp *.zip /opt/VM/share/
 
 copy: msgfmt
 	glib-compile-schemas schemas/
