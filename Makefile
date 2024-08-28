@@ -1,8 +1,8 @@
-NAME = "Lunar Calendar \u519c\u5386"
-UUID = "lunarcal@ailin.nemui"
+NAME = "Lunar Calendar 农历"
+UUID = lunarcal@ailin.nemui
 ZIP = $(UUID).shell-extension.zip
 
-pack: msgfmt
+default pack: msgfmt
 	@rm -rfv $(ZIP)
 	find . -type f -regextype egrep -iregex ".*\.(js|json|mo|typelib|xml|css|ui)|.*/holiday.dat" -not \( -path "./.vscode*" -o -path "./test*" \) | zip $(ZIP) -@
 	ls *.zip
@@ -10,7 +10,7 @@ pack: msgfmt
 
 copy: msgfmt
 	glib-compile-schemas schemas/
-	rsync -rltvp --checksum --delete --exclude='.git' --exclude='.vscode' . ~/.local/share/gnome-shell/extensions/$(UUID)
+	rsync -rltvp --checksum --delete --exclude='.git' --exclude='.vscode' --exclude='test' --exclude='*.zip' --exclude='*.gir' . ~/.local/share/gnome-shell/extensions/$(UUID)
 
 install:
 	gnome-extensions install --force $(ZIP)

@@ -113,6 +113,6 @@ const run = _ld('Rùn');
 // LunarDateX.lang = run == "閏" ? 1 : run == "闰" ? 2 : 0
 LunarDateX.backend = 'yetist';
 
-console.log('importing backend', LunarDateX.backend, 'lang', LunarDateX.lang);
+console.log('importing backend', LunarDateX.backend, 'lang', LunarDateX.lang, '_holidayRegion', _holidayRegion);
 
 export default LunarDateX;
